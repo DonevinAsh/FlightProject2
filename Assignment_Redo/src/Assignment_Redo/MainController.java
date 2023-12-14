@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.Types;
 import java.util.ResourceBundle;
 
+import application.NoAccountPopup;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -45,5 +46,123 @@ public class MainController {
 		@FXML private TextField securityTextField;
 		
 		Connection conn = SQLConnection.getConnection();
+		
+		//--------------------------------Start of Menu Bar Items--------------------------------------------
+		
+				private Stage stage;
+				private Scene scene;
+				private Parent root;
+				
+				
+				
+				@FXML MenuBar MenuBar;
+				
+			//Goes to Main Menu Scene
+				public void goToMainMenu(ActionEvent event) throws IOException {
+					Parent root = FXMLLoader.load(getClass().getResource("MainScene.fxml"));
+					stage = (Stage) MenuBar.getScene().getWindow();
+					stage.setTitle("Main Menu");
+					scene = new Scene(root);
+					stage.setScene(scene);
+					stage.show();
+				
+			}
+
+
+			//Goes to Login Scene
+				public void goToLogin(ActionEvent event) throws IOException {
+					Parent root = FXMLLoader.load(getClass().getResource("LoginScene.fxml"));
+					stage = (Stage) MenuBar.getScene().getWindow();	
+					stage.setTitle("Login");
+					scene = new Scene(root);
+					stage.setScene(scene);
+					stage.show();
+				
+			}
+			
+			//Goes to Register Scene
+				public void goToRegister(ActionEvent event) throws IOException {
+					Parent root = FXMLLoader.load(getClass().getResource("RegisterScene.fxml"));
+					stage = (Stage) MenuBar.getScene().getWindow();	
+					stage.setTitle("Register Account");
+					scene = new Scene(root);
+					stage.setScene(scene);
+					stage.show();
+				}
+			
+			//Goes to Flights Scene
+				public void goToFlights(ActionEvent event) throws IOException {
+					if (UserId != 0) {
+						Parent root = FXMLLoader.load(getClass().getResource("FlightsScene.fxml"));
+						stage = (Stage) MenuBar.getScene().getWindow();		
+						stage.setTitle("Available Flights");
+						scene = new Scene(root);
+						stage.setScene(scene);
+						stage.show();
+					}
+					else 
+						NoAccountPopup.display("Error");
+				}
+				
+			//Goes to User Info Scene
+				public void goToUserInfo(ActionEvent event) throws IOException {
+					Parent root = FXMLLoader.load(getClass().getResource("UserInfoScene.fxml"));
+					stage = (Stage) MenuBar.getScene().getWindow();	
+					stage.setTitle("Account Information");
+					scene = new Scene(root);
+					stage.setScene(scene);
+					stage.show();
+				}
+			
+			//Goes to Booked Flights Scene
+				public void goToBookedFlights(ActionEvent event) throws IOException {
+					Parent root = FXMLLoader.load(getClass().getResource("BookedFlightsScene.fxml"));
+					stage = (Stage) MenuBar.getScene().getWindow();	
+					stage.setTitle("Your Flights");
+					scene = new Scene(root);
+					stage.setScene(scene);
+					stage.show();
+				}
+				
+			// Deletes User Account
+				public void deleteAccount() {
+					
+					
+				}
+				
+			// Logs out of Account
+				public void logout() {
+					 UserId = 0;
+					
+					
+				}
+				
+			// Closes the window
+				public void close(ActionEvent event) {
+				stage = (Stage) MenuBar.getScene().getWindow();
+				stage.close();
+			}
+			
+			// Gets the current User Id
+				public int getUserId() {
+				    int userID = 0;
+				    String query = "SELECT ID FROM [dbo].[CurrentUser]";
+				    try (CallableStatement statement = conn.prepareCall(query)) {
+				        // Execute the query
+				        try (ResultSet resultSet = statement.executeQuery()) {
+				            // Check if there is a result
+				            if (resultSet.next()) {
+				                // Retrieve the ID from the result set
+				                userID = resultSet.getInt("ID");
+				            }
+				        }
+				    } catch (Exception e) {
+				        System.out.println(e);
+				    } finally {
+				        System.out.println("getUserID completed: " + userID);
+				        return userID;
+				    }
+				}
+
 
 }
