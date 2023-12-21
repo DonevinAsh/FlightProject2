@@ -10,7 +10,9 @@ import java.sql.ResultSet;
 import java.sql.Types;
 import java.util.ResourceBundle;
 
-import application.NoAccountPopup;
+import Assingment_Redo.NoAccountPopup;
+import Assingment_Redo.PasswordPopup;
+import Assingment_Redo.SQLConnection;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -161,6 +163,34 @@ public class MainController {
 				    } finally {
 				        System.out.println("getUserID completed: " + userID);
 				        return userID;
+				    }
+				}
+				
+				// Gets Password
+				public void getPassword() {
+				    String username = usernameTextField.getText();
+				    String securityQuestion = securityTextField.getText();
+				 
+				    try {
+				        Connection conn = SQLConnection.getConnection();
+				        String query = "{CALL RetrievePassword (?, ?, ?)}";
+				 
+				        try (CallableStatement statement = conn.prepareCall(query)) {
+				            statement.setString(1, username);
+				            statement.setString(2, securityQuestion);
+				            statement.registerOutParameter(3, Types.NVARCHAR);
+				 
+				            statement.execute();
+				 
+				            String password = statement.getString(3);
+				            System.out.println("Retrieved password: " + password);
+				            PasswordPopup.display("Password", password);
+				        }
+				    } catch (Exception e) {
+				        e.printStackTrace();
+				    } finally {
+				        System.out.println("Password retrieval completed");
+				        		        
 				    }
 				}
 
