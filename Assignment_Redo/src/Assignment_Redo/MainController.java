@@ -10,9 +10,9 @@ import java.sql.ResultSet;
 import java.sql.Types;
 import java.util.ResourceBundle;
 
-import Assingment_Redo.NoAccountPopup;
-import Assingment_Redo.PasswordPopup;
-import Assingment_Redo.SQLConnection;
+import Assignment_Redo.NoAccountPopup;
+import Assignment_Redo.PasswordPopup;
+import Assignment_Redo.SQLConnection;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -33,7 +33,7 @@ import javafx.stage.*;
 import javafx.util.Callback;
 
 
-public class MainController {
+public class MainController extends Main{
 	
 	//User Data
 		@FXML private TextField firstNameTextField;
