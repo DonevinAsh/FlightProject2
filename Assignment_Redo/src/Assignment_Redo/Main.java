@@ -1,6 +1,5 @@
 package Assignment_Redo;
-
-
+	
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,8 +16,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 
-
-
 public class Main extends Application {
 	
 	public static void main(String[] args) throws Exception {
@@ -26,6 +23,10 @@ public class Main extends Application {
 		launch(args);
 	}
 	
+	static MainController main = new MainController();;
+	// gets current user
+	static int UserId = main.getUserId();
+		
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -48,5 +49,5 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
-
+		
 }
