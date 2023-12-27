@@ -12,9 +12,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 public class BookFlightsController extends FlightsController{
 	
@@ -62,6 +66,13 @@ public class BookFlightsController extends FlightsController{
             deleteFlightProcedure(UserId, flightIdInt);
             UserFlightsTable.setItems(listN);
             UserFlightsTable.refresh();
+            
+            Parent root = FXMLLoader.load(getClass().getResource("BookedFlightsScene.fxml"));
+            stage = (Stage) MenuBar.getScene().getWindow();
+            stage.setTitle("Your Flights");
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
             
         } else {
             System.out.println("No row selected");

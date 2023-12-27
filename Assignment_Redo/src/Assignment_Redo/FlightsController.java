@@ -36,8 +36,8 @@ import javafx.stage.Stage;
 
 public class FlightsController extends MainController implements Initializable {
 	
-	private Stage stage;
-	private Scene scene;
+	protected Stage stage;
+	protected Scene scene;
 	private Parent root;
 
 	@FXML MenuBar MenuBar;
@@ -129,7 +129,7 @@ public class FlightsController extends MainController implements Initializable {
 	        	                int authenticationResult = statement2.getInt(3);
 	        	                System.out.println("Authentication Result: " + authenticationResult);
 
-	        	                if (authenticationResult == 1) {
+	        	                if (authenticationResult != 1) {
 	        	                    ConflictingFlightPopup.display("Cannot Book");
 	        	                    System.out.println("Display reached");
 	        	                } else {
